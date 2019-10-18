@@ -11,21 +11,19 @@ import android.content.Intent;
 import com.example.assignment2eh.R;
 import com.example.assignment2eh.StudentDetailsActivity;
 import com.example.assignment2eh.model.Student;
-import com.example.assignment2eh.model.Studentdb;
-
-import org.w3c.dom.Text;
+import com.example.assignment2eh.model.StudentDB;
 
 public class SummaryListAdapter extends BaseAdapter {
     @Override
     public int getCount()
     {
-        return Studentdb.getInstance().getStudentList().size();
+        return StudentDB.getInstance().getStudentList().size();
     }
 
     @Override
     public Object getItem(int i)
     {
-        return Studentdb.getInstance().getStudentList().get(i);
+        return StudentDB.getInstance().getStudentList().get(i);
     }
 
     @Override
@@ -51,7 +49,7 @@ public class SummaryListAdapter extends BaseAdapter {
         }
 
         //
-        Student p = Studentdb.getInstance().getStudentList().get(i);
+        Student p = StudentDB.getInstance().getStudentList().get(i);
 
         ((TextView) row_view.findViewById(R.id.first_name)).setText(p.getFirstName());
         ((TextView) row_view.findViewById(R.id.last_name)).setText(p.getLastName());

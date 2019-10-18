@@ -1,7 +1,5 @@
 package com.example.assignment2eh;
 
-
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,11 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.assignment2eh.model.Student;
-import com.example.assignment2eh.model.Studentdb;
+import com.example.assignment2eh.model.StudentDB;
 
 
 public class StudentDetailsActivity extends AppCompatActivity {
 
+    protected Menu detailMenu;
     protected int studentIndex;
     protected Student studentObj;
 
@@ -33,7 +32,7 @@ public class StudentDetailsActivity extends AppCompatActivity {
         tv.setText(origStr + studentIndex);
         tv.setTextSize(24);
 
-        studentObj = Studentdb.getInstance().getStudentList().get(studentIndex);
+        studentObj = StudentDB.getInstance().getStudentList().get(studentIndex);
         //
         EditText editView = findViewById(R.id.p_first_name_id);
         editView.setText(studentObj.getFirstName());
@@ -46,15 +45,34 @@ public class StudentDetailsActivity extends AppCompatActivity {
         editView.setEnabled(false);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) { //three dots
-//        getMenuInflater().inflate(R.menu.detain_screen_menu, menu);
-//        //menu.findItem(R.id.action_edit)
-//
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        if(item.getItemId() == R.id.action_edit)
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.detain_menu_list, menu);
+        menu.findItem(R.id.action_edit).setVisible(true);
+        menu.findItem(R.id.action_done).setVisible(false);
+        detailMenu = menu;
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) { //.. you are now on this option you selected, no what can you do..
+        if (item.getItemId() == R.id.action_edit) {
+            EditText editView = findViewById(R.id.p_first_name_id);
+            editView.setEnabled(true);
+            editView = findViewById(R.id.p_last_name_id);
+            editView.setEnabled(true);
+            //
+            item.setVisible(false);
+            detailMenu.findItem(R.id.action_done).setVisible(true);
+        } else if (item.getItemId() == R.id.action_done) {
+            EditText editView = findViewById(R.id.p_first_name_id);
+            StudentDB.getInstance().getStudentList().get(studentIndex).setFirstName(editView.getText().toString());
+            editView.setEnabled(false);
+            editView = findViewById(R.id.p_last_name_id);
+            StudentDB.getInstance().getStudentList().get(studentIndex).setLastName(editView.getText().toString());
+            editView.setEnabled(false);
+            item.setVisible(false);
+            detailMenu.findItem(R.id.action_edit).setVisible(true);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

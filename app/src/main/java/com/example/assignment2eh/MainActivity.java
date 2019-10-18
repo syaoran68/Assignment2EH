@@ -9,11 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.assignment2eh.model.Student;
-import com.example.assignment2eh.model.Studentdb;
-import com.example.assignment2eh.model.course;
+import com.example.assignment2eh.model.StudentDB;
 
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         root = findViewById(R.id.student_list);
 
-        ArrayList<Student> studentList = Studentdb.getInstance().getStudentList();
+        ArrayList<Student> studentList = StudentDB.getInstance().getStudentList();
         for(int i = 0; i < studentList.size(); i++)
         {
             Student p = studentList.get(i);
