@@ -40,8 +40,8 @@ public class StudentDetailsActivity extends AppCompatActivity {
         editView.findViewById(R.id.p_last_name_id);
         editView.setText(studentObj.getLastName());
         editView.setEnabled(false);
-        editView.findViewById(R.id.p_CWID);
-        editView.setText(studentObj.getCWID());
+        editView.findViewById(R.id.p_student_id);
+        editView.setText(studentObj.getStudentId());
         editView.setEnabled(false);
     }
 
@@ -60,16 +60,26 @@ public class StudentDetailsActivity extends AppCompatActivity {
             editView.setEnabled(true);
             editView = findViewById(R.id.p_last_name_id);
             editView.setEnabled(true);
+            editView = findViewById(R.id.p_student_id);
+            editView.setEnabled(true);
             //
             item.setVisible(false);
             detailMenu.findItem(R.id.action_done).setVisible(true);
         } else if (item.getItemId() == R.id.action_done) {
+
             EditText editView = findViewById(R.id.p_first_name_id);
             StudentDB.getInstance().getStudentList().get(studentIndex).setFirstName(editView.getText().toString());
             editView.setEnabled(false);
+
             editView = findViewById(R.id.p_last_name_id);
             StudentDB.getInstance().getStudentList().get(studentIndex).setLastName(editView.getText().toString());
             editView.setEnabled(false);
+
+            editView = findViewById(R.id.p_student_id);
+
+            StudentDB.getInstance().getStudentList().get(studentIndex).setStudentId(editView.getText().toString());
+            editView.setEnabled(false);
+
             item.setVisible(false);
             detailMenu.findItem(R.id.action_edit).setVisible(true);
         }

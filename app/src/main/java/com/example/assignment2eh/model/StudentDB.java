@@ -25,7 +25,7 @@ public class StudentDB {
 
     protected void createStudentObjects() {
 
-        Student student = new Student("James", "Shen", 123456789);
+        Student student = new Student("James", "Shen", "123456789");
         ArrayList<course> courses = new ArrayList<>();
         courses.add(new course("CPSC401", "A"));
         courses.add(new course("Math270b", "B"));
@@ -34,7 +34,7 @@ public class StudentDB {
         mStudentList.add(student);
 
 
-        student = new Student("John", "Chang", 987654321);
+        student = new Student("John", "Chang", "987654321");
         courses = new ArrayList<>();
         courses.add(new course("ACCT101", "A"));
         courses.add(new course("Math350", "B"));

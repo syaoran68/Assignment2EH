@@ -53,7 +53,7 @@ public class SummaryListAdapter extends BaseAdapter {
 
         ((TextView) row_view.findViewById(R.id.first_name)).setText(p.getFirstName());
         ((TextView) row_view.findViewById(R.id.last_name)).setText(p.getLastName());
-        ((TextView) row_view.findViewById(R.id.CWID)).setText(p.getCWID());
+        //((TextView) row_view.findViewById(R.id.student_id)).setText(p.getStudentId());
 
         row_view.setTag(new Integer(i));
 

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Student {
     protected String mFirstName;
     protected String mLastName;
-    protected Integer mCWID;
+    protected String mStudentId;
 
     protected ArrayList<course> mCourses;
 
@@ -14,10 +14,10 @@ public class Student {
         return mFirstName;
     }
 
-    public Student(String fName, String lName, Integer id) {
+    public Student(String fName, String lName, String id) {
         mFirstName = fName;
         mLastName = lName;
-        mCWID = id;
+        mStudentId = id;
     }
 
     public void setFirstName(String firstName) {
@@ -32,12 +32,12 @@ public class Student {
         mLastName = lastName;
     }
 
-    public Integer getCWID() {
-        return mCWID;
+    public String getStudentId() {
+        return mStudentId;
     }
 
-    public void setCWID(Integer CWID) {
-        mCWID = CWID;
+    public void setStudentId(String studentId) {
+        mStudentId = studentId;
     }
 
     public ArrayList<course> getCourses() {
