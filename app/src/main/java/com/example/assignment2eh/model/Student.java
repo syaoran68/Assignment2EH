@@ -51,4 +51,9 @@ public class Student {
     public void addCourse(course c) {
         mCourses.add(c);
     }
+
+    public void deleteLastStudent()
+    {
+        StudentDB.getInstance().getStudentList().remove(StudentDB.getInstance().getStudentList().size() -1);
+    }
 }

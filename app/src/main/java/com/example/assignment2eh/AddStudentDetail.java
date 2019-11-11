@@ -117,4 +117,14 @@ public class AddStudentDetail extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
     }
+
+    @Override
+    public void onBackPressed() {
+
+        if (studenobj.getStudentId() == "")
+        {
+            studenobj.deleteLastStudent();
+        }
+        super.onBackPressed();
+    }
 }
