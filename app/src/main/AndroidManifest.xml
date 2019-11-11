@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".StudentDetailsActivity"
+        android:parentActivityName=".SummaryLV">
+        </activity>
+        <activity android:name=".AddStudentDetail"
             android:parentActivityName=".SummaryLV">
         </activity>
         <activity android:name=".SummaryLV"

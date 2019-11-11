@@ -19,8 +19,9 @@ public class StudentDB {
         return mStudentList;
     }
 
-    public void setStudentList(ArrayList<Student> studentList) {
-        mStudentList = studentList;
+    public void addToStudentList(Student student)
+    {
+        StudentDB.getInstance().mStudentList.add(student);
     }
 
     protected void createStudentObjects() {

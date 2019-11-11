@@ -52,8 +52,10 @@ public class SummaryListAdapter extends BaseAdapter {
         Student p = StudentDB.getInstance().getStudentList().get(i);
 
         ((TextView) row_view.findViewById(R.id.first_name)).setText(p.getFirstName());
+
         ((TextView) row_view.findViewById(R.id.last_name)).setText(p.getLastName());
-        //((TextView) row_view.findViewById(R.id.student_id)).setText(p.getStudentId());
+
+        ((TextView) row_view.findViewById(R.id.student_id)).setText(p.getStudentId());
 
         row_view.setTag(new Integer(i));
 
@@ -63,8 +65,7 @@ public class SummaryListAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View view)
                     {
-                        Toast.makeText(view.getContext(),"View Object was touched by user", Toast.LENGTH_SHORT).show();
-
+                       //Toast.makeText(view.getContext(),"View Object was touched by user", Toast.LENGTH_SHORT).show();
 
                         //Page Navigation
                         Intent intent = new Intent(view.getContext(), StudentDetailsActivity.class);

@@ -1,6 +1,6 @@
 package com.example.assignment2eh;
 
-import android.media.ExifInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,24 +8,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.assignment2eh.Adaptor.CourseListAdapter;
+import com.example.assignment2eh.Adaptor.SummaryListAdapter;
+import com.example.assignment2eh.R;
 import com.example.assignment2eh.model.Student;
 import com.example.assignment2eh.model.StudentDB;
 import com.example.assignment2eh.model.course;
 
+import java.util.ArrayList;
 
-public class StudentDetailsActivity extends AppCompatActivity {
+
+public class AddStudentDetail extends AppCompatActivity {
 
     protected Menu detailMenu;
-    protected int studentIndex;
-    protected Student studentObj;
+
     ListView mSummaryView;
     protected CourseListAdapter ad;
+    protected Student studenobj;
     course courseObj;
 
     @Override
@@ -33,27 +36,15 @@ public class StudentDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_details);
 
-        studentIndex = getIntent().getIntExtra("StudentIndex", 0);
+        Student student = new Student("","","");
+        ArrayList<course> courses = new ArrayList<>();
+        student.setCourses(courses);
 
-
-        studentObj = StudentDB.getInstance().getStudentList().get(studentIndex);
-        //
-
-
-        EditText editView = findViewById(R.id.p_first_name_id);
-        editView.setText(studentObj.getFirstName());
-        editView.setEnabled(false);
-
-        EditText editView2 = findViewById(R.id.p_last_name_id);;
-        editView2.setText(studentObj.getLastName());
-        editView2.setEnabled(false);
-
-        EditText editView3 = findViewById(R.id.p_student_id);;
-        editView3.setText(studentObj.getStudentId());
-        editView3.setEnabled(false);
+        StudentDB.getInstance().addToStudentList(student);
+        studenobj = StudentDB.getInstance().getStudentList().get(StudentDB.getInstance().getStudentList().size() - 1);
 
         mSummaryView = findViewById(R.id.course_list_id);
-        ad = new CourseListAdapter(studentObj);
+        ad = new CourseListAdapter(student);
         mSummaryView.setAdapter(ad);
 
         Button addclass = (Button) findViewById(R.id.course_add_button);
@@ -64,64 +55,51 @@ public class StudentDetailsActivity extends AppCompatActivity {
                 EditText courseGradeedit = (EditText) findViewById(R.id.course_grade_edit);
 
                 courseObj = new course(courseIDedit.getText().toString(),courseGradeedit.getText().toString());
-                studentObj.addCourse(courseObj);
+                studenobj.addCourse(courseObj);
 
                 ad.notifyDataSetChanged();
             }
         });
-
-
-
-
-
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.detain_menu_list, menu);
         menu.findItem(R.id.action_add).setVisible(false);
-        menu.findItem(R.id.action_edit).setVisible(true);
-        menu.findItem(R.id.action_done).setVisible(false);
+        menu.findItem(R.id.action_edit).setVisible(false);
+        menu.findItem(R.id.action_done).setVisible(true);
         detailMenu = menu;
         return super.onCreateOptionsMenu(menu);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) { //.. you are now on this option you selected, no what can you do..
-        if (item.getItemId() == R.id.action_edit) {
-            EditText editView = findViewById(R.id.p_first_name_id);
-            editView.setEnabled(true);
-            editView = findViewById(R.id.p_last_name_id);
-            editView.setEnabled(true);
-            editView = findViewById(R.id.p_student_id);
-            editView.setEnabled(true);
-            //
-            item.setVisible(false);
-            detailMenu.findItem(R.id.action_done).setVisible(true);
-        } else if (item.getItemId() == R.id.action_done) {
+        if (item.getItemId() == R.id.action_done) {
+
+
 
             EditText editView = findViewById(R.id.p_first_name_id);
-            StudentDB.getInstance().getStudentList().get(studentIndex).setFirstName(editView.getText().toString());
+            studenobj.setFirstName(editView.getText().toString());
             editView.setEnabled(false);
 
-            editView = findViewById(R.id.p_last_name_id);
-            StudentDB.getInstance().getStudentList().get(studentIndex).setLastName(editView.getText().toString());
-            editView.setEnabled(false);
+            EditText editView2 = findViewById(R.id.p_last_name_id);
+            studenobj.setLastName(editView2.getText().toString());
+            editView2.setEnabled(false);
 
-            editView = findViewById(R.id.p_student_id);
+            EditText editView3 = findViewById(R.id.p_student_id);
+            studenobj.setStudentId(editView3.getText().toString());
+            editView3.setEnabled(false);
 
-            StudentDB.getInstance().getStudentList().get(studentIndex).setStudentId(editView.getText().toString());
-            editView.setEnabled(false);
 
-            item.setVisible(false);
-            detailMenu.findItem(R.id.action_edit).setVisible(true);
+        }
+        else {
+            Intent i = new Intent(this, SummaryLV.class);
+            startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    protected void onStart() {
-        ad.notifyDataSetChanged();
+    protected void onStart(){
         super.onStart();
     }
 
@@ -139,6 +117,4 @@ public class StudentDetailsActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
     }
-
-
 }

@@ -47,4 +47,8 @@ public class Student {
     public void setCourses(ArrayList<course> courses) {
         mCourses = courses;
     }
+
+    public void addCourse(course c) {
+        mCourses.add(c);
+    }
 }
