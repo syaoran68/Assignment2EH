@@ -1,5 +1,7 @@
 package com.example.assignment2eh.Adaptor;
 
+import android.content.Context;
+import android.database.DatabaseUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +15,32 @@ import com.example.assignment2eh.StudentDetailsActivity;
 import com.example.assignment2eh.model.Student;
 import com.example.assignment2eh.model.StudentDB;
 
+import java.util.ArrayList;
+
 public class SummaryListAdapter extends BaseAdapter {
+    ArrayList<Student> mStudentList;
+    StudentDB mStudentDB;
+
+    public SummaryListAdapter(Context context){
+        mStudentDB = new StudentDB(context);
+        mStudentList = mStudentDB.getStudentList();
+    }
+
+
     @Override
     public int getCount()
     {
-        return StudentDB.getInstance().getStudentList().size();
+        return Math.toIntExact(DatabaseUtils.queryNumEntries(mStudentDB.getSQLiteDatabase(), "Student"));
     }
 
     @Override
     public Object getItem(int i)
     {
-        return StudentDB.getInstance().getStudentList().get(i);
+        return mStudentDB.getStudentList().get(i);
+    }
+
+    public void updateList(){
+        mStudentList = mStudentDB.getStudentList();
     }
 
     @Override
@@ -49,7 +66,7 @@ public class SummaryListAdapter extends BaseAdapter {
         }
 
         //
-        Student p = StudentDB.getInstance().getStudentList().get(i);
+        Student p = mStudentDB.getStudentList().get(i);
 
         ((TextView) row_view.findViewById(R.id.first_name)).setText(p.getFirstName());
 

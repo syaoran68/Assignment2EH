@@ -73,11 +73,28 @@
         android:orientation="vertical"
         >
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/course_add_button"
-            android:text="Add Course"></Button>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/course_add_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Course"></Button>
+
+            <TextView
+                android:id="@+id/editText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Please add courses then click done"
+                android:gravity="center_horizontal"/>
+        </LinearLayout>
+
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

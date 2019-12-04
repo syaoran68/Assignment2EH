@@ -10,6 +10,7 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.assignment2eh.Adaptor.CourseListAdapter;
 import com.example.assignment2eh.Adaptor.SummaryListAdapter;
 
 
@@ -26,7 +27,7 @@ public class SummaryLV extends AppCompatActivity {
         setContentView(R.layout.person_list_lv);
         //
         mSummaryView = findViewById(R.id.summary_list_id);
-        ad = new SummaryListAdapter();
+        ad = new SummaryListAdapter(this);
         mSummaryView.setAdapter(ad);
 
     }
@@ -57,6 +58,7 @@ public class SummaryLV extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+        ad.updateList();
         ad.notifyDataSetChanged();
         super.onStart();
     }

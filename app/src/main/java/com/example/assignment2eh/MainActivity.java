@@ -28,17 +28,17 @@ public class MainActivity extends AppCompatActivity {
 
         root = findViewById(R.id.student_list);
 
-        ArrayList<Student> studentList = StudentDB.getInstance().getStudentList();
-        for(int i = 0; i < studentList.size(); i++)
-        {
-            Student p = studentList.get(i);
-            //
-            LayoutInflater inflater = LayoutInflater.from(this);
-            View row_view = inflater.inflate(R.layout.student_row, root, false);
-            //
-            ((TextView) row_view.findViewById(R.id.first_name)).setText(p.getFirstName());
-            root.addView(row_view);
-        }
+//        ArrayList<Student> studentList = mStudentDB.getStudentList();
+//        for(int i = 0; i < studentList.size(); i++)
+//        {
+//            Student p = studentList.get(i);
+//            //
+//            LayoutInflater inflater = LayoutInflater.from(this);
+//            View row_view = inflater.inflate(R.layout.student_row, root, false);
+//            //
+//            ((TextView) row_view.findViewById(R.id.first_name)).setText(p.getFirstName());
+//            root.addView(row_view);
+//        }
     }
 
 

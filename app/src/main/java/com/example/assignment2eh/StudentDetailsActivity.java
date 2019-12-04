@@ -27,6 +27,7 @@ public class StudentDetailsActivity extends AppCompatActivity {
     ListView mSummaryView;
     protected CourseListAdapter ad;
     course courseObj;
+    StudentDB mStudentDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,11 @@ public class StudentDetailsActivity extends AppCompatActivity {
         studentIndex = getIntent().getIntExtra("StudentIndex", 0);
 
 
-        studentObj = StudentDB.getInstance().getStudentList().get(studentIndex);
+        //studentObj = StudentDB.getInstance().getStudentList().get(studentIndex);
+
+        mStudentDB = new StudentDB(this);
+        studentObj = mStudentDB.getStudentList().get(studentIndex);
+
         //
 
 
@@ -53,7 +58,7 @@ public class StudentDetailsActivity extends AppCompatActivity {
         editView3.setEnabled(false);
 
         mSummaryView = findViewById(R.id.course_list_id);
-        ad = new CourseListAdapter(studentObj);
+        ad = new CourseListAdapter(this, studentObj);
         mSummaryView.setAdapter(ad);
 
         Button addclass = (Button) findViewById(R.id.course_add_button);
@@ -63,17 +68,15 @@ public class StudentDetailsActivity extends AppCompatActivity {
                 EditText courseIDedit = (EditText) findViewById(R.id.course_id_edit);
                 EditText courseGradeedit = (EditText) findViewById(R.id.course_grade_edit);
 
-                courseObj = new course(courseIDedit.getText().toString(),courseGradeedit.getText().toString());
-                studentObj.addCourse(courseObj);
+                courseObj = new course(courseIDedit.getText().toString(),courseGradeedit.getText().toString(), studentObj.getStudentId());
+                studentObj.addCourse(mStudentDB, courseObj);
 
                 ad.notifyDataSetChanged();
+
+                courseIDedit.setText("");
+                courseGradeedit.setText("");
             }
         });
-
-
-
-
-
 
     }
 
@@ -101,16 +104,17 @@ public class StudentDetailsActivity extends AppCompatActivity {
         } else if (item.getItemId() == R.id.action_done) {
 
             EditText editView = findViewById(R.id.p_first_name_id);
-            StudentDB.getInstance().getStudentList().get(studentIndex).setFirstName(editView.getText().toString());
+            String firsttest = editView.getText().toString();
+            mStudentDB.getStudentList().get(studentIndex).setFirstName(mStudentDB, editView.getText().toString());
             editView.setEnabled(false);
 
             editView = findViewById(R.id.p_last_name_id);
-            StudentDB.getInstance().getStudentList().get(studentIndex).setLastName(editView.getText().toString());
+            mStudentDB.getStudentList().get(studentIndex).setLastName(mStudentDB, editView.getText().toString());
             editView.setEnabled(false);
 
             editView = findViewById(R.id.p_student_id);
 
-            StudentDB.getInstance().getStudentList().get(studentIndex).setStudentId(editView.getText().toString());
+            mStudentDB.getStudentList().get(studentIndex).setStudentId(mStudentDB, editView.getText().toString());
             editView.setEnabled(false);
 
             item.setVisible(false);
